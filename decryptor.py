@@ -42,7 +42,6 @@ def driverun(root):
             ext = PATH.split('.')[-1]
             if ext.lower() == 'jpg_enc' or ext.lower() == 'jpeg_enc' or ext.lower() == 'png_enc':
                 print(PATH)
-                #dec(PATH)
                 thread(target=dec, args=(PATH,)).start()
         for name in DIR:
             PATH = os.path.join(ROOT, name)
@@ -52,7 +51,6 @@ dr = [chr(i) for i in range(ord('D'), ord('Z')+1)]
 drives = [d+':\\' for d in dr if os.path.exists(f'{d}:')]
 
 for i in drives:
-    #driverun(i)
     thread(target=driverun, args=(i,)).start()
 
 msg.showinfo(title='Decryptor',message='Decryption Completed')
